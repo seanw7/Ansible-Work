@@ -1,0 +1,19 @@
+  - name: Install Python Flask Dependencies
+    pip:
+      name: "{{ item }}"
+      state: present
+    with_items:
+    - Flask
+    - flask-mysql
+
+  - name: Get updated files from git repo
+    git:
+      repo: "https://{{ githubuser }}:{{ githubpassword }}@github.com/{{ git_repo }}"
+      dest: "{{ repo_dest }}"
+
+
+  - name: Copy Source code
+    copy: src={{ repo_dest }} dest=/opt/app.py
+
+  - name: Start Web Server
+    shell: FLASK_APP={{ repo_dest }}/app.py nohup flask run --host=0.0.0.0 &

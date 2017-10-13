@@ -1,0 +1,1 @@
+db_and_web_server ansible_host=192.168.0.90 ansible_ssh_pass=1Canada! ansible_become=true
